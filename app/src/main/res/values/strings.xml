@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ShoppingList_ZSkluzacek</string>
+    <string name="welcome_message">Welcome to Zach\'s Shopping List!</string>
+    <string name="app_title">Zach\'s Shopping List</string>
+    <string name="toolbar_label">Zach\'s Shopping List</string>
+    <string name="create_new_item">Create New Item</string>
+    <string name="delete_all_items">Delete All Items</string>
+    <string name="splash_description">App Icon</string>
+    <string name="delete_all">Delete All</string>
+</resources>

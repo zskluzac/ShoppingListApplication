@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hu.ait.android.shoppinglist_zskluzacek.SplashActivity"
+    android:background="#000000">
+
+    <ImageView
+        android:id="@+id/splash_image"
+        android:paddingTop="100dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/list_icon"
+        android:contentDescription="@string/splash_description"/>
+
+    <TextView
+        android:id="@+id/splash_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_message"
+        android:paddingTop="50dp"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"/>
+
+</LinearLayout>
