@@ -22,7 +22,7 @@
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:id="@+id/tvMessage"
-        android:text="Enter information about the item below:"/>
+        android:text="@string/enter_information_about_the_item_below"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:colorAccent="#FFFFFF"
         android:inputType="textCapWords"
         android:id="@+id/etName"
-        android:hint="Name"/>
+        android:hint="@string/name"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         android:colorAccent="#FFFFFF"
         android:inputType="numberDecimal"
         android:id="@+id/etPrice"
-        android:hint="Price"/>
+        android:hint="@string/price"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
         android:textColorHint="#FFFFFF"
         android:colorAccent="#FFFFFF"
         android:id="@+id/etDescription"
-        android:hint="Describe your item here"/>
+        android:hint="@string/describe_your_item_here"/>
 
     <RadioGroup
         android:id="@+id/rgCategory"
@@ -65,31 +65,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="Category:" />
+            android:text="@string/category" />
         <RadioButton
             android:id="@+id/rbGroceries"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="Groceries"/>
+            android:text="@string/groceries"/>
         <RadioButton
             android:id="@+id/rbClothing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="Clothing"/>
+            android:text="@string/clothing"/>
         <RadioButton
             android:id="@+id/rbElectronics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="Electronics"/>
+            android:text="@string/electronics"/>
         <RadioButton
             android:id="@+id/rbOther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="Other"/>
+            android:text="@string/other"/>
     </RadioGroup>
 
     <RadioGroup
@@ -101,35 +101,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="Priority:" />
+            android:text="@string/priority" />
         <RadioButton
             android:id="@+id/rbHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="High"/>
+            android:text="@string/high"/>
         <RadioButton
             android:id="@+id/rbMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="Medium"/>
+            android:text="@string/medium"/>
         <RadioButton
             android:id="@+id/rbLow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="Low"/>
-
+            android:text="@string/low"/>
     </RadioGroup>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnEnter"
-        android:text="Add to Shopping List"/>
-
-
-
-
+        android:text="@string/add_to_shopping_list"/>
 </LinearLayout>

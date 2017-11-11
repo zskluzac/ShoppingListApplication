@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ITEM NAME"
+                android:text="@string/item_name"
                 android:textSize="20sp" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="ITEM PRICE" />
+                android:text="@string/item_price" />
 
         </LinearLayout>
 
@@ -53,7 +53,7 @@
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ITEM DESCRIPTION" />
+                android:text="@string/item_description" />
 
         </LinearLayout>
 
@@ -61,14 +61,14 @@
                 android:id="@+id/cbBought"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BOUGHT?" />
+                android:text="@string/bought" />
 
             <Button
                 android:id="@+id/btnEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="EDIT" />
+                android:text="@string/edit" />
 
     </LinearLayout>
 </LinearLayout>

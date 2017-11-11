@@ -7,4 +7,24 @@
     <string name="delete_all_items">Delete All Items</string>
     <string name="splash_description">App Icon</string>
     <string name="delete_all">Delete All</string>
+    <string name="currency_sign">$</string>
+    <string name="item_name">ITEM NAME</string>
+    <string name="item_price">ITEM PRICE</string>
+    <string name="item_description">ITEM DESCRIPTION</string>
+    <string name="bought">BOUGHT?</string>
+    <string name="edit">EDIT</string>
+    <string name="enter_information_about_the_item_below">Enter information about the item below:</string>
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="describe_your_item_here">Describe your item here</string>
+    <string name="category">Category:</string>
+    <string name="groceries">Groceries</string>
+    <string name="clothing">Clothing</string>
+    <string name="electronics">Electronics</string>
+    <string name="other">Other</string>
+    <string name="priority">Priority:</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+    <string name="add_to_shopping_list">Add to Shopping List</string>
 </resources>

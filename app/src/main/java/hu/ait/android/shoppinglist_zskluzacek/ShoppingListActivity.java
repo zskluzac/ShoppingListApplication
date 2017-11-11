@@ -31,21 +31,30 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        setUpToolbar();
         ((ShoppingListApplication)getApplication()).openRealm();
-
         RecyclerView recyclerViewSL = (RecyclerView) findViewById(R.id.recyclerSL);
         adapter = new ShoppingListAdapter(this, ((ShoppingListApplication)getApplication())
                 .getRealmSL());
+        setUpRecycler(recyclerViewSL);
+        setUpItemTouchHelper(recyclerViewSL);
+    }
 
-        recyclerViewSL.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewSL.setHasFixedSize(true);
-        recyclerViewSL.setAdapter(adapter);
+    private void setUpToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    private void setUpItemTouchHelper(RecyclerView recyclerViewSL) {
         ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerViewSL);
+    }
+
+    private void setUpRecycler(RecyclerView recyclerViewSL) {
+        recyclerViewSL.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewSL.setHasFixedSize(true);
+        recyclerViewSL.setAdapter(adapter);
     }
 
 
@@ -72,27 +81,22 @@ public class ShoppingListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-//    @Override
-//    protected void onDestroy() {
-//        ((ShoppingListApplication)getApplication()).closeRealm();
-//
-//        super.onDestroy();
-//    }
-
-
     public void openEditActivity(int adapterPosition, String createTime, String itemName, int itemCat,
                                  float itemPrice, String itemDesc, int itemPriority) {
         positionToEdit = adapterPosition;
 
         Intent intentEdit = new Intent(this, NewItemActivity.class);
+        putEditExtras(createTime, itemName, itemCat, itemPrice, itemDesc, itemPriority, intentEdit);
+        startActivityForResult(intentEdit, REQUEST_CODE_EDIT);
+    }
+
+    private void putEditExtras(String createTime, String itemName, int itemCat, float itemPrice, String itemDesc, int itemPriority, Intent intentEdit) {
         intentEdit.putExtra(CREATE_TIME, createTime);
         intentEdit.putExtra(ITEM_NAME, itemName);
         intentEdit.putExtra(ITEM_CAT, itemCat);
         intentEdit.putExtra(ITEM_PRICE, itemPrice);
         intentEdit.putExtra(ITEM_DESC, itemDesc);
         intentEdit.putExtra(ITEM_PRIORITY, itemPriority);
-        startActivityForResult(intentEdit, REQUEST_CODE_EDIT);
     }
 
     @Override

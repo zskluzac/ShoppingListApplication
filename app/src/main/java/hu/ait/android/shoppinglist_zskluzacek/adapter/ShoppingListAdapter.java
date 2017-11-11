@@ -1,10 +1,7 @@
 package hu.ait.android.shoppinglist_zskluzacek.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import hu.ait.android.shoppinglist_zskluzacek.NewItemActivity;
 import hu.ait.android.shoppinglist_zskluzacek.R;
 import hu.ait.android.shoppinglist_zskluzacek.ShoppingListActivity;
-import hu.ait.android.shoppinglist_zskluzacek.ShoppingListApplication;
 import hu.ait.android.shoppinglist_zskluzacek.data.ShoppingItem;
 import hu.ait.android.shoppinglist_zskluzacek.touch.ItemTouchHelperAdapter;
 import io.realm.Realm;
@@ -86,7 +76,6 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                 findFirst();
 
         shoppingItemList.set(positionToEdit, item);
-
         notifyItemChanged(positionToEdit);
     }
 
@@ -101,47 +90,18 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final ShoppingItem itemData = shoppingItemList.get(position);
 
-        switch(itemData.getItemCategory()) {
-            case R.id.rbGroceries:
-                holder.ivCategory.setImageResource(R.mipmap.grocery_icon);
-                break;
-            case R.id.rbClothing:
-                holder.ivCategory.setImageResource(R.mipmap.clothes_icon);
-                break;
-            case R.id.rbElectronics:
-                holder.ivCategory.setImageResource(R.mipmap.e_icon);
-                break;
-            case R.id.rbOther:
-                holder.ivCategory.setImageResource(R.mipmap.other_icon);
-                break;
-        }
+        handleCategory(holder, itemData);
 
-        switch(itemData.getPriority()) {
-            case R.id.rbHigh:
-                holder.rowLayout.setBackgroundColor(Color.rgb(128, 21, 21));
-                break;
-            case R.id.rbMedium:
-                holder.rowLayout.setBackgroundColor(Color.rgb(34, 102, 102));
-                break;
-            case R.id.rbLow:
-                holder.rowLayout.setBackgroundColor(Color.rgb(123, 159, 52));
-                break;
-        }
+        handlePriority(holder, itemData);
 
-        holder.tvName.setText(itemData.getItemName());
-        holder.tvPrice.setText("$" + String.valueOf(itemData.getItemPrice()));
-        holder.tvDescription.setText(itemData.getItemDescription());
-        holder.cbBought.setChecked(itemData.isBought());
+        gatherEditInfo(holder, itemData);
 
-        holder.cbBought.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                realmSL.beginTransaction();
-                itemData.setBought(isChecked);
-                realmSL.commitTransaction();
-            }
-        });
+        handleBoughtChange(holder, itemData);
 
+        handleEditButton(holder);
+    }
+
+    private void handleEditButton(final ViewHolder holder) {
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +116,55 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                         currDesc, currPriority);
             }
         });
+    }
+
+    private void handleBoughtChange(ViewHolder holder, final ShoppingItem itemData) {
+        holder.cbBought.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                realmSL.beginTransaction();
+                itemData.setBought(isChecked);
+                realmSL.commitTransaction();
+            }
+        });
+    }
+
+    private void gatherEditInfo(ViewHolder holder, ShoppingItem itemData) {
+        holder.tvName.setText(itemData.getItemName());
+        holder.tvPrice.setText(context.getString(R.string.currency_sign) + String.valueOf(itemData.getItemPrice()));
+        holder.tvDescription.setText(itemData.getItemDescription());
+        holder.cbBought.setChecked(itemData.isBought());
+    }
+
+    private void handlePriority(ViewHolder holder, ShoppingItem itemData) {
+        switch(itemData.getPriority()) {
+            case R.id.rbHigh:
+                holder.rowLayout.setBackgroundColor(Color.rgb(128, 21, 21));
+                break;
+            case R.id.rbMedium:
+                holder.rowLayout.setBackgroundColor(Color.rgb(34, 102, 102));
+                break;
+            case R.id.rbLow:
+                holder.rowLayout.setBackgroundColor(Color.rgb(123, 159, 52));
+                break;
+        }
+    }
+
+    private void handleCategory(ViewHolder holder, ShoppingItem itemData) {
+        switch(itemData.getItemCategory()) {
+            case R.id.rbGroceries:
+                holder.ivCategory.setImageResource(R.mipmap.grocery_icon);
+                break;
+            case R.id.rbClothing:
+                holder.ivCategory.setImageResource(R.mipmap.clothes_icon);
+                break;
+            case R.id.rbElectronics:
+                holder.ivCategory.setImageResource(R.mipmap.e_icon);
+                break;
+            case R.id.rbOther:
+                holder.ivCategory.setImageResource(R.mipmap.other_icon);
+                break;
+        }
     }
 
     @Override
@@ -191,15 +200,19 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         realmSL.beginTransaction();
 
         ShoppingItem newItem = realmSL.createObject(ShoppingItem.class, createTime);
+        setItemInfo(itemName, itemCategory, itemDescription, itemPrice, itemPriority, newItem);
+        realmSL.commitTransaction();
+
+        shoppingItemList.add(0, newItem);
+        notifyItemInserted(0);
+    }
+
+    private void setItemInfo(String itemName, int itemCategory, String itemDescription, float itemPrice, int itemPriority, ShoppingItem newItem) {
         newItem.setItemName(itemName);
         newItem.setItemCategory(itemCategory);
         newItem.setItemDescription(itemDescription);
         newItem.setItemPrice(itemPrice);
         newItem.setBought(false);
         newItem.setPriority(itemPriority);
-        realmSL.commitTransaction();
-
-        shoppingItemList.add(0, newItem);
-        notifyItemInserted(0);
     }
 }
