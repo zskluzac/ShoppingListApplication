@@ -59,7 +59,8 @@ public class ShoppingListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete:
-                Toast.makeText(this, "DELETE ALL", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "All Items Removed", Toast.LENGTH_SHORT).show();
+                adapter.deleteAll();
                 break;
             case R.id.action_new:
                 Intent mainIntent = new Intent(ShoppingListActivity.this, NewItemActivity.class);
@@ -77,14 +78,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 //        ((ShoppingListApplication)getApplication()).closeRealm();
 //
 //        super.onDestroy();
-//    }
-
-//    public void openNewItemActivity(int adapterPosition, String todoID) {
-//        positionToEdit = adapterPosition;
-//
-//        Intent intentEdit = new Intent(this, NewItemActivity.class);
-//        intentEdit.putExtra(KEY_TODO_ID, todoID);
-//        startActivity(intentEdit);
 //    }
 
 

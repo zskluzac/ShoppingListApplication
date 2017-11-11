@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import hu.ait.android.shoppinglist_zskluzacek.NewItemActivity;
@@ -140,6 +141,14 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
+    }
+
+    public void deleteAll() {
+        shoppingItemList.removeAll(shoppingItemList);
+        realmSL.beginTransaction();
+        realmSL.deleteAll();
+        realmSL.commitTransaction();
+        notifyDataSetChanged();
     }
 
 
