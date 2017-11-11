@@ -65,7 +65,7 @@ public class NewItemActivity extends AppCompatActivity {
                     if (getIntent().hasExtra(ShoppingListActivity.ITEM_NAME)) {
                         ((ShoppingListApplication) getApplication()).getRealmSL().beginTransaction();
 
-                        //itemToEdit.setItemName(etName.getText().toString());
+                        itemToEdit.setItemName(etName.getText().toString());
                         itemToEdit.setItemCategory("category");
                         itemToEdit.setItemPrice(Float.valueOf(etPrice.getText().toString()));
                         itemToEdit.setItemDescription(etDescription.getText().toString());
@@ -77,7 +77,8 @@ public class NewItemActivity extends AppCompatActivity {
                         finish();
 
                     } else {
-                        adapter.addItem(etName.getText().toString(), "category", etDescription.getText().toString(),
+                        adapter.addItem(String.valueOf(System.currentTimeMillis()),
+                                etName.getText().toString(), "category", etDescription.getText().toString(),
                                 Float.valueOf(etPrice.getText().toString()));
                         Intent mainIntent = new Intent(NewItemActivity.this, ShoppingListActivity.class);
                         NewItemActivity.this.startActivity(mainIntent);

@@ -95,7 +95,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final ShoppingItem itemData = shoppingItemList.get(position);
 
-        holder.ivCategory.setImageResource(R.mipmap.ic_launcher_round);
+        holder.ivCategory.setImageResource(R.mipmap.other_icon);
         holder.tvName.setText(itemData.getItemName());
         holder.tvPrice.setText(String.valueOf(itemData.getItemPrice()));
         holder.tvDescription.setText(itemData.getItemDescription());
@@ -143,11 +143,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
 
-    public void addItem(String itemName, String itemCategory, String itemDescription,
+    public void addItem(String createTime, String itemName, String itemCategory, String itemDescription,
                         float itemPrice) {
         realmSL.beginTransaction();
 
-        ShoppingItem newItem = realmSL.createObject(ShoppingItem.class, itemName);
+        ShoppingItem newItem = realmSL.createObject(ShoppingItem.class, createTime);
+        newItem.setItemName(itemName);
         newItem.setItemCategory(itemCategory);
         newItem.setItemDescription(itemDescription);
         newItem.setItemPrice(itemPrice);
