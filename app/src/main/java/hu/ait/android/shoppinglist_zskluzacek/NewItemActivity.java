@@ -23,6 +23,7 @@ public class NewItemActivity extends AppCompatActivity {
     EditText etPrice;
     EditText etDescription;
     RadioGroup rgCategory;
+    RadioGroup rgPriority;
 
     private ShoppingItem itemToEdit = null;
 
@@ -44,14 +45,17 @@ public class NewItemActivity extends AppCompatActivity {
         etPrice = (EditText) findViewById(R.id.etPrice);
         etDescription = (EditText) findViewById(R.id.etDescription);
         rgCategory = (RadioGroup) findViewById(R.id.rgCategory);
+        rgPriority = (RadioGroup) findViewById(R.id.rgPriority);
 
         rgCategory.check(R.id.rbOther);
+        rgPriority.check(R.id.rbLow);
 
         if(itemToEdit != null) {
             etName.setText(itemToEdit.getItemName());
             etPrice.setText(String.valueOf(itemToEdit.getItemPrice()));
             etDescription.setText(itemToEdit.getItemDescription());
             rgCategory.check(itemToEdit.getItemCategory());
+            rgPriority.check(itemToEdit.getPriority());
         }
 
         btnEnter = (Button) findViewById(R.id.btnEnter);
@@ -75,6 +79,7 @@ public class NewItemActivity extends AppCompatActivity {
                         itemToEdit.setItemCategory(rgCategory.getCheckedRadioButtonId());
                         itemToEdit.setItemPrice(Float.valueOf(etPrice.getText().toString()));
                         itemToEdit.setItemDescription(etDescription.getText().toString());
+                        itemToEdit.setPriority(rgPriority.getCheckedRadioButtonId());
 
                         ((ShoppingListApplication) getApplication()).getRealmSL().commitTransaction();
 
@@ -87,7 +92,8 @@ public class NewItemActivity extends AppCompatActivity {
                         adapter.addItem(String.valueOf(System.currentTimeMillis()),
                                 etName.getText().toString(), rgCategory.getCheckedRadioButtonId(),
                                 etDescription.getText().toString(),
-                                Float.valueOf(etPrice.getText().toString()));
+                                Float.valueOf(etPrice.getText().toString()),
+                                rgPriority.getCheckedRadioButtonId());
                         Intent mainIntent = new Intent(NewItemActivity.this, ShoppingListActivity.class);
                         NewItemActivity.this.startActivity(mainIntent);
                         NewItemActivity.this.finish();

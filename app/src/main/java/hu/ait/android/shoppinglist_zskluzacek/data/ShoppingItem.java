@@ -13,6 +13,7 @@ public class ShoppingItem extends RealmObject {
     private int itemCategory;
     private float itemPrice;
     private boolean bought;
+    private int priority;
 
 
     @PrimaryKey
@@ -22,13 +23,14 @@ public class ShoppingItem extends RealmObject {
     }
 
     public ShoppingItem(String createTime, String itemName, String itemDescription, int itemCategory,
-                        float itemPrice, boolean bought) {
+                        float itemPrice, boolean bought, int priority) {
         this.createTime = createTime;
         this.itemName = itemName;
         this.itemDescription = itemDescription;
         this.itemCategory = itemCategory;
         this.itemPrice = (float)(Math.round(itemPrice * 100d) / 100d);
         this.bought = bought;
+        this.priority = priority;
     }
 
     public String getItemDescription() {
@@ -74,4 +76,13 @@ public class ShoppingItem extends RealmObject {
     public String getCreateTime() {
         return createTime;
     }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
 }

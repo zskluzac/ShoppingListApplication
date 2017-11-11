@@ -3,6 +3,7 @@ package hu.ait.android.shoppinglist_zskluzacek.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +63,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         private TextView tvDescription;
         private CheckBox cbBought;
         private Button btnEdit;
+        private LinearLayout rowLayout;
 
 
         public ViewHolder(View itemView) {
@@ -72,6 +75,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             cbBought = (CheckBox) itemView.findViewById(R.id.cbBought);
             btnEdit = (Button) itemView.findViewById(R.id.btnEdit);
+            rowLayout = (LinearLayout) itemView.findViewById(R.id.rowLayout);
 
         }
     }
@@ -112,6 +116,18 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                 break;
         }
 
+        switch(itemData.getPriority()) {
+            case R.id.rbHigh:
+                holder.rowLayout.setBackgroundColor(Color.rgb(128, 21, 21));
+                break;
+            case R.id.rbMedium:
+                holder.rowLayout.setBackgroundColor(Color.rgb(34, 102, 102));
+                break;
+            case R.id.rbLow:
+                holder.rowLayout.setBackgroundColor(Color.rgb(123, 159, 52));
+                break;
+        }
+
         holder.tvName.setText(itemData.getItemName());
         holder.tvPrice.setText("$" + String.valueOf(itemData.getItemPrice()));
         holder.tvDescription.setText(itemData.getItemDescription());
@@ -134,8 +150,10 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                 int currCat = shoppingItemList.get(holder.getAdapterPosition()).getItemCategory();
                 float currPrice = shoppingItemList.get(holder.getAdapterPosition()).getItemPrice();
                 String currDesc = shoppingItemList.get(holder.getAdapterPosition()).getItemDescription();
+                int currPriority = shoppingItemList.get(holder.getAdapterPosition()).getPriority();
                 ((ShoppingListActivity)context).openEditActivity(
-                        holder.getAdapterPosition(), createTime, currName, currCat, currPrice, currDesc);
+                        holder.getAdapterPosition(), createTime, currName, currCat, currPrice,
+                        currDesc, currPriority);
             }
         });
     }
@@ -169,7 +187,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
 
     public void addItem(String createTime, String itemName, int itemCategory, String itemDescription,
-                        float itemPrice) {
+                        float itemPrice, int itemPriority) {
         realmSL.beginTransaction();
 
         ShoppingItem newItem = realmSL.createObject(ShoppingItem.class, createTime);
@@ -178,6 +196,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         newItem.setItemDescription(itemDescription);
         newItem.setItemPrice(itemPrice);
         newItem.setBought(false);
+        newItem.setPriority(itemPriority);
         realmSL.commitTransaction();
 
         shoppingItemList.add(0, newItem);

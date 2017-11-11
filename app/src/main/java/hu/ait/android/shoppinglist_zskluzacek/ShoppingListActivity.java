@@ -22,6 +22,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     public static final String ITEM_CAT = "itemCat";
     public static final String ITEM_PRICE = "itemPrice";
     public static final String ITEM_DESC = "itemDesc";
+    public static final String ITEM_PRIORITY = "itemPriority";
     public static final int REQUEST_CODE_EDIT = 1001;
 
     private int positionToEdit = 1;
@@ -81,7 +82,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
     public void openEditActivity(int adapterPosition, String createTime, String itemName, int itemCat,
-                                 float itemPrice, String itemDesc) {
+                                 float itemPrice, String itemDesc, int itemPriority) {
         positionToEdit = adapterPosition;
 
         Intent intentEdit = new Intent(this, NewItemActivity.class);
@@ -90,6 +91,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         intentEdit.putExtra(ITEM_CAT, itemCat);
         intentEdit.putExtra(ITEM_PRICE, itemPrice);
         intentEdit.putExtra(ITEM_DESC, itemDesc);
+        intentEdit.putExtra(ITEM_PRIORITY, itemPriority);
         startActivityForResult(intentEdit, REQUEST_CODE_EDIT);
     }
 

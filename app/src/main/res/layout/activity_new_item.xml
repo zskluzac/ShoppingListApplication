@@ -61,6 +61,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="130dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="Category:" />
         <RadioButton
             android:id="@+id/rbGroceries"
             android:layout_width="wrap_content"
@@ -85,6 +90,37 @@
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
             android:text="Other"/>
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rgPriority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="130dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="Priority:" />
+        <RadioButton
+            android:id="@+id/rbHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="High"/>
+        <RadioButton
+            android:id="@+id/rbMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="Medium"/>
+        <RadioButton
+            android:id="@+id/rbLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="Low"/>
+
     </RadioGroup>
 
     <Button
