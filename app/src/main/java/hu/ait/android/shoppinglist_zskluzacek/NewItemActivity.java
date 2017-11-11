@@ -59,9 +59,10 @@ public class NewItemActivity extends AppCompatActivity {
     private void handleEnterClick() {
         if(etName.getText() == null || etName.getText().toString().equals("")) {
             etName.setError("Must Enter Information");
-        } else if(etPrice.getText() == null) {
+        } else if(etPrice.getText() == null || etPrice.getText().toString().equals("") ||
+                !isNumber(etPrice.getText().toString())) {
             etPrice.setError("Must Enter Information");
-        } else if(etDescription.getText() == null) {
+        } else if(etDescription.getText() == null || etDescription.getText().toString().equals("")) {
             etDescription.setError("Must Enter Information");
         } else {
             if (getIntent().hasExtra(ShoppingListActivity.CREATE_TIME)) {
@@ -137,5 +138,14 @@ public class NewItemActivity extends AppCompatActivity {
         etDescription = (EditText) findViewById(R.id.etDescription);
         rgCategory = (RadioGroup) findViewById(R.id.rgCategory);
         rgPriority = (RadioGroup) findViewById(R.id.rgPriority);
+    }
+
+    private boolean isNumber(String num) {
+        try {
+            Float.parseFloat(num);
+        } catch(NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 }
