@@ -9,8 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import hu.ait.android.shoppinglist_zskluzacek.adapter.ShoppingListAdapter;
@@ -81,7 +79,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 //    }
 
 
-    public void openEditActivity(int adapterPosition, String itemName, String itemCat,
+    public void openEditActivity(int adapterPosition, String itemName, int itemCat,
                                  float itemPrice, String itemDesc) {
         positionToEdit = adapterPosition;
 

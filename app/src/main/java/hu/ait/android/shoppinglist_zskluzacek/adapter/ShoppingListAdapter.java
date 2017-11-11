@@ -115,7 +115,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             @Override
             public void onClick(View v) {
                 String currName = shoppingItemList.get(holder.getAdapterPosition()).getItemName();
-                String currCat = shoppingItemList.get(holder.getAdapterPosition()).getItemCategory();
+                int currCat = shoppingItemList.get(holder.getAdapterPosition()).getItemCategory();
                 float currPrice = shoppingItemList.get(holder.getAdapterPosition()).getItemPrice();
                 String currDesc = shoppingItemList.get(holder.getAdapterPosition()).getItemDescription();
                 ((ShoppingListActivity)context).openEditActivity(
@@ -152,7 +152,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
 
-    public void addItem(String createTime, String itemName, String itemCategory, String itemDescription,
+    public void addItem(String createTime, String itemName, int itemCategory, String itemDescription,
                         float itemPrice) {
         realmSL.beginTransaction();
 
@@ -167,5 +167,4 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         shoppingItemList.add(0, newItem);
         notifyItemInserted(0);
     }
-
 }

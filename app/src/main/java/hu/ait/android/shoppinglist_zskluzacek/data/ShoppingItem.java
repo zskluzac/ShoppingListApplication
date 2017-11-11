@@ -10,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
 public class ShoppingItem extends RealmObject {
     private String itemName;
     private String itemDescription;
-    private String itemCategory;
+    private int itemCategory;
     private float itemPrice;
     private boolean bought;
 
@@ -21,7 +21,7 @@ public class ShoppingItem extends RealmObject {
     public ShoppingItem() {
     }
 
-    public ShoppingItem(String createTime, String itemName, String itemDescription, String itemCategory,
+    public ShoppingItem(String createTime, String itemName, String itemDescription, int itemCategory,
                         float itemPrice, boolean bought) {
         this.createTime = createTime;
         this.itemName = itemName;
@@ -39,11 +39,11 @@ public class ShoppingItem extends RealmObject {
         this.itemDescription = itemDescription;
     }
 
-    public String getItemCategory() {
+    public int getItemCategory() {
         return itemCategory;
     }
 
-    public void setItemCategory(String itemCategory) {
+    public void setItemCategory(int itemCategory) {
         this.itemCategory = itemCategory;
     }
 

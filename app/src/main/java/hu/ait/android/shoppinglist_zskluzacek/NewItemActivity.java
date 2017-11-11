@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import hu.ait.android.shoppinglist_zskluzacek.adapter.ShoppingListAdapter;
@@ -21,6 +22,7 @@ public class NewItemActivity extends AppCompatActivity {
     EditText etName;
     EditText etPrice;
     EditText etDescription;
+    RadioGroup rgCategory;
 
     private ShoppingItem itemToEdit = null;
 
@@ -41,11 +43,13 @@ public class NewItemActivity extends AppCompatActivity {
         etName = (EditText) findViewById(R.id.etName);
         etPrice = (EditText) findViewById(R.id.etPrice);
         etDescription = (EditText) findViewById(R.id.etDescription);
+        rgCategory = (RadioGroup) findViewById(R.id.rgCategory);
 
         if(itemToEdit != null) {
             etName.setText(itemToEdit.getItemName());
             etPrice.setText(String.valueOf(itemToEdit.getItemPrice()));
             etDescription.setText(itemToEdit.getItemDescription());
+            rgCategory.check(itemToEdit.getItemCategory());
         }
 
         btnEnter = (Button) findViewById(R.id.btnEnter);
@@ -66,7 +70,7 @@ public class NewItemActivity extends AppCompatActivity {
                         ((ShoppingListApplication) getApplication()).getRealmSL().beginTransaction();
 
                         itemToEdit.setItemName(etName.getText().toString());
-                        itemToEdit.setItemCategory("category");
+                        itemToEdit.setItemCategory(rgCategory.getCheckedRadioButtonId());
                         itemToEdit.setItemPrice(Float.valueOf(etPrice.getText().toString()));
                         itemToEdit.setItemDescription(etDescription.getText().toString());
                         ((ShoppingListApplication) getApplication()).getRealmSL().commitTransaction();
@@ -78,7 +82,7 @@ public class NewItemActivity extends AppCompatActivity {
 
                     } else {
                         adapter.addItem(String.valueOf(System.currentTimeMillis()),
-                                etName.getText().toString(), "category", etDescription.getText().toString(),
+                                etName.getText().toString(), rgCategory.getCheckedRadioButtonId(), etDescription.getText().toString(),
                                 Float.valueOf(etPrice.getText().toString()));
                         Intent mainIntent = new Intent(NewItemActivity.this, ShoppingListActivity.class);
                         NewItemActivity.this.startActivity(mainIntent);
