@@ -17,6 +17,7 @@ import hu.ait.android.shoppinglist_zskluzacek.touch.ItemTouchHelperCallback;
 public class ShoppingListActivity extends AppCompatActivity {
 
     private ShoppingListAdapter adapter;
+    public static final String CREATE_TIME = "createTime";
     public static final String ITEM_NAME = "itemName";
     public static final String ITEM_CAT = "itemCat";
     public static final String ITEM_PRICE = "itemPrice";
@@ -79,11 +80,12 @@ public class ShoppingListActivity extends AppCompatActivity {
 //    }
 
 
-    public void openEditActivity(int adapterPosition, String itemName, int itemCat,
+    public void openEditActivity(int adapterPosition, String createTime, String itemName, int itemCat,
                                  float itemPrice, String itemDesc) {
         positionToEdit = adapterPosition;
 
         Intent intentEdit = new Intent(this, NewItemActivity.class);
+        intentEdit.putExtra(CREATE_TIME, createTime);
         intentEdit.putExtra(ITEM_NAME, itemName);
         intentEdit.putExtra(ITEM_CAT, itemCat);
         intentEdit.putExtra(ITEM_PRICE, itemPrice);
@@ -95,7 +97,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE_EDIT && resultCode == RESULT_OK) {
-            String itemNameThatWasEdited = data.getStringExtra(ITEM_NAME);
+            String itemNameThatWasEdited = data.getStringExtra(CREATE_TIME);
 
             adapter.updateItem(itemNameThatWasEdited, positionToEdit);
         } else {

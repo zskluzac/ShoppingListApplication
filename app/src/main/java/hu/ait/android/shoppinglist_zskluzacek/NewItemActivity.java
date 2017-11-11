@@ -34,16 +34,18 @@ public class NewItemActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (getIntent().hasExtra(ShoppingListActivity.ITEM_NAME)) {
-            String itemName = getIntent().getStringExtra(ShoppingListActivity.ITEM_NAME);
+        if (getIntent().hasExtra(ShoppingListActivity.CREATE_TIME)) {
+            String itemName = getIntent().getStringExtra(ShoppingListActivity.CREATE_TIME);
             itemToEdit = ((ShoppingListApplication)getApplication()).getRealmSL().where(ShoppingItem.class)
-                    .equalTo(ShoppingListActivity.ITEM_NAME, itemName).findFirst();
+                    .equalTo(ShoppingListActivity.CREATE_TIME, itemName).findFirst();
         }
 
         etName = (EditText) findViewById(R.id.etName);
         etPrice = (EditText) findViewById(R.id.etPrice);
         etDescription = (EditText) findViewById(R.id.etDescription);
         rgCategory = (RadioGroup) findViewById(R.id.rgCategory);
+
+        rgCategory.check(R.id.rbOther);
 
         if(itemToEdit != null) {
             etName.setText(itemToEdit.getItemName());
@@ -66,23 +68,25 @@ public class NewItemActivity extends AppCompatActivity {
                 } else if(etDescription.getText() == null) {
                     etDescription.setError("Must Enter Information");
                 } else {
-                    if (getIntent().hasExtra(ShoppingListActivity.ITEM_NAME)) {
+                    if (getIntent().hasExtra(ShoppingListActivity.CREATE_TIME)) {
                         ((ShoppingListApplication) getApplication()).getRealmSL().beginTransaction();
 
                         itemToEdit.setItemName(etName.getText().toString());
                         itemToEdit.setItemCategory(rgCategory.getCheckedRadioButtonId());
                         itemToEdit.setItemPrice(Float.valueOf(etPrice.getText().toString()));
                         itemToEdit.setItemDescription(etDescription.getText().toString());
+
                         ((ShoppingListApplication) getApplication()).getRealmSL().commitTransaction();
 
                         Intent intentResult = new Intent();
-                        intentResult.putExtra(ShoppingListActivity.ITEM_NAME, itemToEdit.getItemName());
+                        intentResult.putExtra(ShoppingListActivity.CREATE_TIME, itemToEdit.getCreateTime());
                         setResult(RESULT_OK, intentResult);
                         finish();
 
                     } else {
                         adapter.addItem(String.valueOf(System.currentTimeMillis()),
-                                etName.getText().toString(), rgCategory.getCheckedRadioButtonId(), etDescription.getText().toString(),
+                                etName.getText().toString(), rgCategory.getCheckedRadioButtonId(),
+                                etDescription.getText().toString(),
                                 Float.valueOf(etPrice.getText().toString()));
                         Intent mainIntent = new Intent(NewItemActivity.this, ShoppingListActivity.class);
                         NewItemActivity.this.startActivity(mainIntent);

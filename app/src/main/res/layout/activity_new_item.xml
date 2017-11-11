@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hu.ait.android.shoppinglist_zskluzacek.NewItemActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#21c2f3">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -18,12 +19,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
         android:id="@+id/tvMessage"
         android:text="Enter information about the item below:"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:colorAccent="#FFFFFF"
         android:inputType="textCapWords"
         android:id="@+id/etName"
         android:hint="Name"/>
@@ -31,6 +38,10 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:colorAccent="#FFFFFF"
         android:inputType="numberDecimal"
         android:id="@+id/etPrice"
         android:hint="Price"/>
@@ -38,37 +49,46 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:colorAccent="#FFFFFF"
         android:id="@+id/etDescription"
         android:hint="Describe your item here"/>
 
     <RadioGroup
         android:id="@+id/rgCategory"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="130dp">
         <RadioButton
             android:id="@+id/rbGroceries"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
             android:text="Groceries"/>
         <RadioButton
-            android:id="@+id/Clothing"
+            android:id="@+id/rbClothing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
             android:text="Clothing"/>
         <RadioButton
             android:id="@+id/rbElectronics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
             android:text="Electronics"/>
         <RadioButton
             android:id="@+id/rbOther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
             android:text="Other"/>
     </RadioGroup>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnEnter"
         android:text="Add to Shopping List"/>

@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,7 +78,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     public void updateItem(String itemThatWasEdited, int positionToEdit) {
         ShoppingItem item = realmSL.where(ShoppingItem.class).
-                equalTo(ShoppingListActivity.ITEM_NAME, itemThatWasEdited).
+                equalTo(ShoppingListActivity.CREATE_TIME, itemThatWasEdited).
                 findFirst();
 
         shoppingItemList.set(positionToEdit, item);
@@ -96,9 +97,23 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final ShoppingItem itemData = shoppingItemList.get(position);
 
-        holder.ivCategory.setImageResource(R.mipmap.other_icon);
+        switch(itemData.getItemCategory()) {
+            case R.id.rbGroceries:
+                holder.ivCategory.setImageResource(R.mipmap.grocery_icon);
+                break;
+            case R.id.rbClothing:
+                holder.ivCategory.setImageResource(R.mipmap.clothes_icon);
+                break;
+            case R.id.rbElectronics:
+                holder.ivCategory.setImageResource(R.mipmap.e_icon);
+                break;
+            case R.id.rbOther:
+                holder.ivCategory.setImageResource(R.mipmap.other_icon);
+                break;
+        }
+
         holder.tvName.setText(itemData.getItemName());
-        holder.tvPrice.setText(String.valueOf(itemData.getItemPrice()));
+        holder.tvPrice.setText("$" + String.valueOf(itemData.getItemPrice()));
         holder.tvDescription.setText(itemData.getItemDescription());
         holder.cbBought.setChecked(itemData.isBought());
 
@@ -115,11 +130,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             @Override
             public void onClick(View v) {
                 String currName = shoppingItemList.get(holder.getAdapterPosition()).getItemName();
+                String createTime = shoppingItemList.get(holder.getAdapterPosition()).getCreateTime();
                 int currCat = shoppingItemList.get(holder.getAdapterPosition()).getItemCategory();
                 float currPrice = shoppingItemList.get(holder.getAdapterPosition()).getItemPrice();
                 String currDesc = shoppingItemList.get(holder.getAdapterPosition()).getItemDescription();
                 ((ShoppingListActivity)context).openEditActivity(
-                        holder.getAdapterPosition(), currName, currCat, currPrice, currDesc);
+                        holder.getAdapterPosition(), createTime, currName, currCat, currPrice, currDesc);
             }
         });
     }
